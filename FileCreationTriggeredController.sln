@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1022
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileCreationTriggeredController", "FileCreationTriggeredController\FileCreationTriggeredController.csproj", "{12756466-508B-4512-99BB-13EA226F8088}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12756466-508B-4512-99BB-13EA226F8088}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12756466-508B-4512-99BB-13EA226F8088}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12756466-508B-4512-99BB-13EA226F8088}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12756466-508B-4512-99BB-13EA226F8088}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {807A9B88-6FEE-425C-ABF4-549BC7851A69}
+	EndGlobalSection
+EndGlobal
