@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace FileCreationTriggeredController.Audio
+namespace FileCreationTriggeredController.Hardware.Audio
 {
 	static class AudioDevice
 	{

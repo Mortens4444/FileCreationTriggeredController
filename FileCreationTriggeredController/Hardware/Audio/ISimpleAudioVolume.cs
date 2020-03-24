@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace FileCreationTriggeredController.Audio
+namespace FileCreationTriggeredController.Hardware.Audio
 {
 	[Guid("87CE5498-68D6-44E5-9215-6DA47EF883D8"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 	internal interface ISimpleAudioVolume

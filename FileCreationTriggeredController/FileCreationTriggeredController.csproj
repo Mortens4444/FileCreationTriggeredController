@@ -39,24 +39,27 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Audio\AudioHandler.cs" />
-    <Compile Include="Audio\EDataFlow.cs" />
-    <Compile Include="Audio\ERole.cs" />
-    <Compile Include="Audio\IAudioEndpointVolume.cs" />
-    <Compile Include="Audio\IAudioSessionControl2.cs" />
-    <Compile Include="Audio\IAudioSessionEnumerator.cs" />
-    <Compile Include="Audio\IAudioSessionManager2.cs" />
-    <Compile Include="Audio\IMMDevice.cs" />
-    <Compile Include="Audio\IMMDeviceEnumerator.cs" />
-    <Compile Include="Audio\ISimpleAudioVolume.cs" />
-    <Compile Include="Audio\MMDeviceEnumerator.cs" />
+    <Compile Include="FileReader.cs" />
+    <Compile Include="Hardware\Audio\AudioHandler.cs" />
+    <Compile Include="Hardware\Audio\EDataFlow.cs" />
+    <Compile Include="Hardware\Audio\ERole.cs" />
+    <Compile Include="Hardware\Audio\IAudioEndpointVolume.cs" />
+    <Compile Include="Hardware\Audio\IAudioSessionControl2.cs" />
+    <Compile Include="Hardware\Audio\IAudioSessionEnumerator.cs" />
+    <Compile Include="Hardware\Audio\IAudioSessionManager2.cs" />
+    <Compile Include="Hardware\Audio\IMMDevice.cs" />
+    <Compile Include="Hardware\Audio\IMMDeviceEnumerator.cs" />
+    <Compile Include="Hardware\Audio\ISimpleAudioVolume.cs" />
+    <Compile Include="Hardware\Audio\MMDeviceEnumerator.cs" />
     <Compile Include="CommandListBuilder.cs" />
-    <Compile Include="Audio\AudioDevice.cs" />
+    <Compile Include="Hardware\Audio\AudioDevice.cs" />
     <Compile Include="Commands\HalfVolume.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\Hibernate.cs" />
     <Compile Include="Commands\Beep.cs" />
     <Compile Include="Commands\FullVolume.cs" />
+    <Compile Include="Commands\PressKey.cs" />
+    <Compile Include="Commands\Kill.cs" />
     <Compile Include="Commands\UnMute.cs" />
     <Compile Include="Commands\Mute.cs" />
     <Compile Include="Commands\Sleep.cs" />
@@ -64,6 +67,7 @@
     <Compile Include="ExceptionDetails.cs" />
     <Compile Include="FileSystemChangeTrigger.cs" />
     <Compile Include="FolderCleaner.cs" />
+    <Compile Include="Hardware\Display\DisplayDevices.cs" />
     <Compile Include="ProcessUtils.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

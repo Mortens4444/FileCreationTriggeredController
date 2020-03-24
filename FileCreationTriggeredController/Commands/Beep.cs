@@ -5,7 +5,7 @@ namespace FileCreationTriggeredController.Commands
 {
 	class Beep : ICommand
 	{
-		public IEnumerable<string> CommandNames => new[] { "Beep" };
+		public IEnumerable<string> CommandNames => new[] { nameof(Beep) };
 
 		public void Execute()
 		{

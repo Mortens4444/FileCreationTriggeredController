@@ -38,11 +38,17 @@ namespace FileCreationTriggeredController
 			if (Commands.ContainsKey(key))
 			{
 				var command = Commands[key];
-				command.Execute();
+				try
+				{
+					command.Execute();
+				}
+				catch (Exception ex)
+				{
+					Console.Error.WriteLine(ExceptionDetails.Get(ex));
+				}
+				var parent = Path.GetDirectoryName(e.FullPath);
+				FolderCleaner.Clean(parent);
 			}
-
-			var parent = Path.GetDirectoryName(e.FullPath);
-			FolderCleaner.Clean(parent);
 		}
 	}
 }

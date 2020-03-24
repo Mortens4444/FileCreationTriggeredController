@@ -1,4 +1,4 @@
-﻿namespace FileCreationTriggeredController.Audio
+﻿namespace FileCreationTriggeredController.Hardware.Audio
 {
 	internal enum EDataFlow
 	{

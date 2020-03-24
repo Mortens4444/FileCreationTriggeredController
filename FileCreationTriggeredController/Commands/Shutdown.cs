@@ -4,7 +4,7 @@ namespace FileCreationTriggeredController.Commands
 {
 	class Shutdown : ICommand
 	{
-		public IEnumerable<string> CommandNames => new[] { "Shutdown" };
+		public IEnumerable<string> CommandNames => new[] { nameof(Shutdown) };
 
 		public void Execute()
 		{

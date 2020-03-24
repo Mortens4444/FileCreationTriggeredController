@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using FileCreationTriggeredController.Audio;
+using FileCreationTriggeredController.Hardware.Audio;
 
 namespace FileCreationTriggeredController.Commands
 {
 	class UnMute : ICommand
 	{
-		public IEnumerable<string> CommandNames => new[] { "Unmute" };
+		public IEnumerable<string> CommandNames => new[] { nameof(UnMute) };
 
 		public void Execute()
 		{
