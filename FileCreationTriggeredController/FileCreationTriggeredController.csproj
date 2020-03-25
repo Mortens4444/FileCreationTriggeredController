@@ -40,6 +40,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\NextEpisodeOf.cs" />
     <Compile Include="Commands\AbortShutdown.cs" />
     <Compile Include="FileReader.cs" />
     <Compile Include="Hardware\Audio\AudioHandler.cs" />
@@ -81,12 +82,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>SETLOCAL EnableExtensions
-set EXE=FileCreationTriggeredController.exe
-FOR /F %25%25x IN ('tasklist /NH /FI "IMAGENAME eq %25EXE%25"') DO IF %25%25x == %25EXE%25 goto FOUND
-goto FIN
-:FOUND
-%25windir%25/System32/taskkill /f /im %25EXE%25
-:FIN</PreBuildEvent>
+    <PreBuildEvent>REM %25windir%25/System32/taskkill /f /im FileCreationTriggeredController.exe</PreBuildEvent>
   </PropertyGroup>
 </Project>
