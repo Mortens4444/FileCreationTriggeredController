@@ -29,14 +29,13 @@ namespace FileCreationTriggeredController.Commands
 					ProcessUtils.Start(Vlc, $"\"{newEpisodeFilePath}\"");
 					Thread.Sleep(3000);
 					SendKeys.SendWait("f");
+					var moviePointerFilename = Path.Combine(Application.StartupPath, series[seriesName]);
+					File.WriteAllText(moviePointerFilename, $"{newEpisodeFilePath}");
 				}
 				else
 				{
 					Reader.ReadAsync($"Can't find next episode of {seriesName}.");
 				}
-
-				var moviePointerFilename = Path.Combine(Application.StartupPath, series[seriesName]);
-				File.WriteAllText(moviePointerFilename, $"{newEpisodeFilePath}");
 			}
 			else
 			{
