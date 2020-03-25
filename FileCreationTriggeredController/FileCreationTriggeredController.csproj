@@ -71,6 +71,7 @@
     <Compile Include="FileSystemChangeTrigger.cs" />
     <Compile Include="FolderCleaner.cs" />
     <Compile Include="Hardware\Display\DisplayDevices.cs" />
+    <Compile Include="Utils\DirectoryUtils.cs" />
     <Compile Include="Utils\ProcessUtils.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

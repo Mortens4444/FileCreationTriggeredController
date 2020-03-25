@@ -8,8 +8,9 @@ namespace FileCreationTriggeredController.Commands
 {
 	class NextEpisodeOf : ICommand
 	{
-		private readonly string MoviesFolder = @"D:\";
-		private readonly string Vlc = @"C:\Program Files (x86)\VideoLAN\VLC\vlc.exe";
+		private const string MoviesFolder = @"D:\This.Is.Us.S04E16.HDTV.x264-SVA";
+		private const string Vlc = @"C:\Program Files (x86)\VideoLAN\VLC\vlc.exe";
+		private readonly string[] MovieExtensions = new string[] { ".avi", ".mov", ".mpg", ".mpeg", ".mkv", ".wmv" };
 
 		public IEnumerable<string> CommandNames => new[] { nameof(NextEpisodeOf) };
 		private readonly Dictionary<string, string> series = new Dictionary<string, string>
@@ -27,9 +28,9 @@ namespace FileCreationTriggeredController.Commands
 				if (File.Exists(newEpisodeFilePath))
 				{
 					ProcessUtils.Start(Vlc, $"\"{newEpisodeFilePath}\"");
-					Thread.Sleep(3000);
+					Thread.Sleep(10000);
 					SendKeys.SendWait("f");
-					var moviePointerFilename = Path.Combine(Application.StartupPath, series[seriesName]);
+					var moviePointerFilename = Path.Combine(Application.StartupPath, series[seriesName.ToLower()]);
 					File.WriteAllText(moviePointerFilename, $"{newEpisodeFilePath}");
 				}
 				else
@@ -46,33 +47,34 @@ namespace FileCreationTriggeredController.Commands
 		public string GetNextFileName(string seriesName)
 		{
 			var fileNameSearchPattern = GetFileNameSearchPattern(seriesName);
-			var moviePointerFilename = Path.Combine(Application.StartupPath, series[seriesName]);
+			var moviePointerFilename = Path.Combine(Application.StartupPath, series[seriesName.ToLower()]);
 			if (!File.Exists(moviePointerFilename))
 			{
-				return FileUtils.SearchForFirst(MoviesFolder, fileNameSearchPattern);
+				return FileUtils.SearchForFirst(MoviesFolder, fileNameSearchPattern, MovieExtensions);
 			}
 
 			var filename = FileUtils.GetFileContent(moviePointerFilename);
-			var di = new DirectoryInfo(Path.GetDirectoryName(filename));
-			var files = di.GetFiles();
+			var directoryInfo = new DirectoryInfo(Path.GetDirectoryName(filename));
+
+			var files = directoryInfo.GetFilesWithExtensions("*", SearchOption.TopDirectoryOnly, MovieExtensions);
 
 			var lastFileInfo = files[files.Length - 1];
 			if (lastFileInfo.FullName == filename)
 			{
-				di = new DirectoryInfo(lastFileInfo.Directory.Parent.FullName);
-				var directories = di.GetDirectories();
+				directoryInfo = new DirectoryInfo(lastFileInfo.Directory.Parent.FullName);
+				var directories = directoryInfo.GetDirectories();
 
 				var lastDirecoryInfo = directories[directories.Length - 1];
 				if (lastDirecoryInfo.FullName == lastFileInfo.Directory.FullName)
 				{
-					return FileUtils.SearchForFirst(MoviesFolder, fileNameSearchPattern);
+					return FileUtils.SearchForFirst(MoviesFolder, fileNameSearchPattern, MovieExtensions);
 				}
 
 				for (var i = 0; i < directories.Length - 1; i++)
 				{
 					if (directories[i].FullName == lastFileInfo.Directory.FullName)
 					{
-						return FileUtils.SearchForFirst(directories[i + 1].FullName, fileNameSearchPattern);
+						return FileUtils.SearchForFirst(directories[i + 1].FullName, fileNameSearchPattern, MovieExtensions);
 					}
 				}
 			}
@@ -95,8 +97,9 @@ namespace FileCreationTriggeredController.Commands
 				.Replace('e', '*')
 				.Replace('i', '*')
 				.Replace('o', '*')
-				.Replace('u', '*');
-			return $"*{normalizedSeriesName}*.avi";
+				.Replace('u', '*')
+				.Replace(' ', '*');
+			return $"*{normalizedSeriesName}*";
 		}
 	}
 }

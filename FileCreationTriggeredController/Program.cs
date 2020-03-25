@@ -30,8 +30,10 @@ namespace FileCreationTriggeredController
 				HaltWithError(2, $"The following directory does not exists: {WatcherDirectory}");
 			}
 
+#if !DEBUG
 			var handle = GetConsoleWindow();
 			ShowWindow(handle, Hide);
+#endif
 
 			FolderCleaner.Clean(WatcherDirectory);
 			FileSystemChangeTrigger.WatchDirectory(WatcherDirectory);

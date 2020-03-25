@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Permissions;
+using System.Threading;
 using FileCreationTriggeredController.Commands;
 
 namespace FileCreationTriggeredController
@@ -47,6 +48,9 @@ namespace FileCreationTriggeredController
 					Console.Error.WriteLine(ExceptionDetails.Get(ex));
 				}
 				var parent = Path.GetDirectoryName(e.FullPath);
+#if DEBUG
+				Thread.Sleep(30000);
+#endif
 				FolderCleaner.Clean(parent);
 			}
 		}

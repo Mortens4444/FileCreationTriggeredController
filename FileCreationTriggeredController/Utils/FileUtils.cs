@@ -10,7 +10,7 @@ namespace FileCreationTriggeredController.Utils
 			string result;
 			if (File.Exists(filename))
 			{
-				using (var fileStream = new FileStream(filename, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
+				using (var fileStream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
 				{
 					using (var streamReader = new StreamReader(fileStream))
 					{
@@ -27,20 +27,21 @@ namespace FileCreationTriggeredController.Utils
 			return result;
 		}
 
-		public static string SearchForFirst(string directory, string filename)
+		public static string SearchForFirst(string directory, string searchPattern, string[] extensions)
 		{
 			try
 			{
-				var result = Directory.GetFiles(directory, filename, SearchOption.TopDirectoryOnly);
+				var directoryInfo = new DirectoryInfo(directory);
+				var result = directoryInfo.GetFilesWithExtensions(searchPattern, SearchOption.TopDirectoryOnly, extensions);
 				if (result.Length > 0)
 				{
-					return result[0];
+					return result[0].FullName;
 				}
 
 				var subdirectories = Directory.GetDirectories(directory);
 				for (var i = 0; i < subdirectories.Length; i++)
 				{
-					var found = SearchForFirst(subdirectories[i], filename);
+					var found = SearchForFirst(subdirectories[i], searchPattern, extensions);
 					if (found != null)
 					{
 						return found;
