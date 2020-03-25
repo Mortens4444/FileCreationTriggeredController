@@ -35,10 +35,12 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Speech" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AbortShutdown.cs" />
     <Compile Include="FileReader.cs" />
     <Compile Include="Hardware\Audio\AudioHandler.cs" />
     <Compile Include="Hardware\Audio\EDataFlow.cs" />
@@ -68,12 +70,23 @@
     <Compile Include="FileSystemChangeTrigger.cs" />
     <Compile Include="FolderCleaner.cs" />
     <Compile Include="Hardware\Display\DisplayDevices.cs" />
-    <Compile Include="ProcessUtils.cs" />
+    <Compile Include="Utils\ProcessUtils.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reader.cs" />
+    <Compile Include="Utils\FileUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>SETLOCAL EnableExtensions
+set EXE=FileCreationTriggeredController.exe
+FOR /F %25%25x IN ('tasklist /NH /FI "IMAGENAME eq %25EXE%25"') DO IF %25%25x == %25EXE%25 goto FOUND
+goto FIN
+:FOUND
+%25windir%25/System32/taskkill /f /im %25EXE%25
+:FIN</PreBuildEvent>
+  </PropertyGroup>
 </Project>

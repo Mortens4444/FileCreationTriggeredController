@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace FileCreationTriggeredController
+namespace FileCreationTriggeredController.Utils
 {
 	public static class ProcessUtils
 	{

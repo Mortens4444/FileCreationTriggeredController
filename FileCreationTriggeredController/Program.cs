@@ -33,6 +33,7 @@ namespace FileCreationTriggeredController
 			var handle = GetConsoleWindow();
 			ShowWindow(handle, Hide);
 
+			FolderCleaner.Clean(WatcherDirectory);
 			FileSystemChangeTrigger.WatchDirectory(WatcherDirectory);
 
 			while (true)
