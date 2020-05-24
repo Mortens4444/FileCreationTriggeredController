@@ -8,15 +8,20 @@ namespace FileCreationTriggeredController.Commands
 {
 	class NextEpisodeOf : ICommand
 	{
-		private const string MoviesFolder = @"D:\This.Is.Us.S04E16.HDTV.x264-SVA";
+		private const string MoviesFolder = @"D:\";
 		private const string Vlc = @"C:\Program Files (x86)\VideoLAN\VLC\vlc.exe";
 		private readonly string[] MovieExtensions = new string[] { ".avi", ".mov", ".mpg", ".mpeg", ".mkv", ".wmv" };
 
 		public IEnumerable<string> CommandNames => new[] { nameof(NextEpisodeOf) };
 		private readonly Dictionary<string, string> series = new Dictionary<string, string>
 		{
+			{ "friends", "Friends.mvp" },
 			{ "smallville", "Smallville.mvp" },
-			{ "this is us", "ThisIsUs.mvp" }
+			{ "this is us", "ThisIsUs.mvp" },
+			{ "american horror story", "AmericanHorrorStory.mvp" },
+			{ "supernatural", "Supernatural.mvp" },
+			{ "legacies", "Legacies.mvp" },
+			{ "green archer", "GreenArcher.mvp" },
 		};
 
 		public void Execute()
