@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
@@ -15,13 +16,13 @@ namespace FileCreationTriggeredController.Commands
 		public IEnumerable<string> CommandNames => new[] { nameof(NextEpisodeOf) };
 		private readonly Dictionary<string, string> series = new Dictionary<string, string>
 		{
-			{ "friends", "Friends.mvp" },
-			{ "smallville", "Smallville.mvp" },
-			{ "this is us", "ThisIsUs.mvp" },
-			{ "american horror story", "AmericanHorrorStory.mvp" },
-			{ "supernatural", "Supernatural.mvp" },
-			{ "legacies", "Legacies.mvp" },
-			{ "green archer", "GreenArcher.mvp" },
+			{ "friends", "Jóbarátok" },
+			{ "smallville", null },
+			{ "this is us", null },
+			{ "american horror story", null },
+			{ "supernatural", null },
+			{ "legacies", null },
+			{ "green archer", null },
 		};
 
 		public void Execute()
@@ -29,13 +30,13 @@ namespace FileCreationTriggeredController.Commands
 			var seriesName = FileReader.GetContent(nameof(NextEpisodeOf));
 			if (series.ContainsKey(seriesName.ToLower()))
 			{
-				var newEpisodeFilePath = GetNextFileName(seriesName);
+				var newEpisodeFilePath = GetNextFileName(seriesName, series[seriesName.ToLower()]);
 				if (File.Exists(newEpisodeFilePath))
 				{
 					ProcessUtils.Start(Vlc, $"\"{newEpisodeFilePath}\"");
 					Thread.Sleep(10000);
 					SendKeys.SendWait("f");
-					var moviePointerFilename = Path.Combine(Application.StartupPath, series[seriesName.ToLower()]);
+					var moviePointerFilename = GetPointerFileName(seriesName);
 					File.WriteAllText(moviePointerFilename, $"{newEpisodeFilePath}");
 				}
 				else
@@ -49,10 +50,19 @@ namespace FileCreationTriggeredController.Commands
 			}
 		}
 
-		public string GetNextFileName(string seriesName)
+		public string GetNextFileName(string seriesName, string alias)
 		{
-			var fileNameSearchPattern = GetFileNameSearchPattern(seriesName);
-			var moviePointerFilename = Path.Combine(Application.StartupPath, series[seriesName.ToLower()]);
+			if (String.IsNullOrEmpty(alias))
+			{
+				return GetNextFileNameWithSearchPattern(seriesName, GetFileNameSearchPattern(seriesName));
+			}
+
+			return GetNextFileNameWithSearchPattern(seriesName, GetFileNameSearchPattern(alias));
+		}
+
+		private string GetNextFileNameWithSearchPattern(string seriesName, string fileNameSearchPattern)
+		{
+			var moviePointerFilename = GetPointerFileName(seriesName);
 			if (!File.Exists(moviePointerFilename))
 			{
 				return FileUtils.SearchForFirst(MoviesFolder, fileNameSearchPattern, MovieExtensions);
@@ -94,6 +104,11 @@ namespace FileCreationTriggeredController.Commands
 				}
 			}
 			return null;
+		}
+
+		private string GetPointerFileName(string seriesName)
+		{
+			return Path.Combine(Application.StartupPath, seriesName.Replace(" ", String.Empty));
 		}
 
 		private string GetFileNameSearchPattern(string seriesName)
